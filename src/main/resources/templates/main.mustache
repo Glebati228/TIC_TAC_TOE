@@ -1,37 +1,32 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
-    <title>
-        Main Page
-    </title>
-</head>
-<body>
-    <form method="post">
-        <input type="text" name="text" placeholder="Enter the message"/>
-        <input type="text" name="tag" placeholder="Enter the tag">
-        <button type="submit">Добавить</button>
-    </form>
-
-    <form method="post" action="filter">
-        <input type="text" name="tag" placeholder="find by tag"/>
-        <button type="submit">Find</button>
-    </form>
-    <div>
-        Messages
-    </div>
-    {{#messages}}
-    <div>
-        <b>
-            {{id}}
-        </b>
-        <span>
-            {{text}}
-        </span>
-        <i>
-            {{tag}}
-        </i>
-    </div>
-    {{/messages}}
-</body>
+    <body>
+        <div>
+            <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </div>
+        <div>
+            <form method="post">
+                <input type="text" name="text" placeholder="Enter the message" />
+                <input type="text" name="tag" placeholder="tag">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <div>Messages</div>
+        <form method="post" action="filter">
+            <input type="text" name="filter">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit">Find by tag</button>
+        </form>
+        {{#messages}}
+            <div>
+                <b>{{id}}</b>
+                <span>{{text}}</span>
+                <i>{{tag}}</i>
+            </div>
+        {{/messages}}
+    </body>
 </html>
