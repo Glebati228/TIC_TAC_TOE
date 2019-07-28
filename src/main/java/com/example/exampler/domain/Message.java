@@ -23,9 +23,9 @@ public class Message
 
     public Message(String text, String tag, User author)
     {
-        this.author = author;
         this.text = text;
         this.tag = tag;
+        this.author = author;
     }
 
     public String getAuthorName()
