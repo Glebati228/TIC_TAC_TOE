@@ -1,9 +1,6 @@
 package com.example.exampler.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Message
@@ -15,15 +12,33 @@ public class Message
     private String text;
     private String tag;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User author;
+
     public Message()
     {
 
     }
 
-    public Message(String text, String tag)
+    public Message(String text, String tag, User author)
     {
+        this.author = author;
         this.text = text;
         this.tag = tag;
+    }
+
+    public String getAuthorName()
+    {
+        return author != null ? author.getUsername() : "none";
+    }
+
+    public User getUser() {
+        return author;
+    }
+
+    public void setUser(User user) {
+        this.author = user;
     }
 
     public void SetText(String text)
