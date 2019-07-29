@@ -34,7 +34,7 @@ public class GreetingController
         return "main";
     }
 
-    @PostMapping
+    @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,
             @RequestParam String text,
