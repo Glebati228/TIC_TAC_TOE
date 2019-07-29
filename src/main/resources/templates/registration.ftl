@@ -1,10 +1,11 @@
-<#import "layouts/style1.ftl" as e>
-<#import "layouts/styleAuth.ftl" as c>
+<#import "layouts/style1.ftl" as c>
+<#import "layouts/styleAuth.ftl" as s>
+<@c.page>
+<div>
+    Reg Page
+</div>
+${message?ifExists}
+<@s.auth "/registration"/>
+</@c.page>
 
-<@e.page>
-        <div>
-            Reg Page
-        </div>
-        ${message?ifExists}
-<@c.auth "/registration"/>
-</@e.page>
+
