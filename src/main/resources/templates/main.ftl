@@ -1,16 +1,10 @@
-<#import "layouts/style1.ftl" as e>
+
+<#import "layouts/style1.ftl" as c>
 <#import "layouts/styleAuth.ftl" as s>
-<@e.page>
+<@c.page>
 
         <@s.logout/>
-        <div>
-            <form method="post">
-                <input type="text" name="text" placeholder="Enter the message" />
-                <input type="text" name="tag" placeholder="tag">
-                <input type="hidden" name="_csrf" value="${_csrf.token}" />
-                <button type="submit">Add</button>
-            </form>
-        </div>
+         <a href="/user">Users</a>
         <div>
                         <form method="post">
                             <input type="text" name="text" placeholder="Enter the message" />
@@ -38,4 +32,3 @@
              No message
              </#list>
 </@c.page>
-
