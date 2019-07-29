@@ -27,6 +27,7 @@
                  <span>${message.GetText()}</span>
                  <i>${message.GetTag()}</i>
                  <strong>${message.getAuthorName()}</strong>
+                 <a href="/editMes/${message.getId()}">Edit</a>
              </div>
              <#else>
              No message
