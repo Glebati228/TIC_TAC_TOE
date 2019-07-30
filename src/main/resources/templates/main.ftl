@@ -6,9 +6,10 @@
         <@s.logout/>
          <a href="/user">Users</a>
         <div>
-                        <form method="post">
+                        <form method="post" enctype="multipart/form-data">
                             <input type="text" name="text" placeholder="Enter the message" />
-                            <input type="text" name="tag" placeholder="tag">
+                            <input type="text" name="tag" placeholder="tag"/>
+                            <input type="file" name="file"/>
                             <input type="hidden" name="_csrf" value="${_csrf.token}" />
                             <button type="submit">Add</button>
                         </form>
@@ -27,7 +28,10 @@
                  <span>${message.GetText()}</span>
                  <i>${message.GetTag()}</i>
                  <strong>${message.getAuthorName()}</strong>
-                 <a href="/editMes/${message.getId()}">Edit</a>
+                 <#if message.getFilename()??>
+                 <img src="/images/${message.getFilename()}"/>
+                 </#if>
+                  <a href="/editMes/${message.getId()}">Edit</a>
              </div>
              <#else>
              No message
