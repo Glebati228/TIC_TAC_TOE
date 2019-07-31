@@ -1,10 +1,29 @@
-<#macro auth path>
+<#macro auth path isLogin>
 
+<#if isLogin>
+    <h4>
+        Login form
+    </h4>
+<#else>
+    <h4>
+        Registration form
+    </h4>
+</#if>
 <form action="${path}" method="post">
-<div><label> User Name : <input type="text" name="username"/> </label></div>
-<div><label> Password: <input type="password" name="password"/> </label></div>
-<input type="hidden" name="_csrf" value="${_csrf.token}" />
-<div><input type="submit" value="Sign In"/></div>
+    <div class="form-group row">
+        <label class="col-form-label">User Name:</label>
+        <input class="form-control" type="text" name="username"/>
+        <small class="form-text text-muted">Your brilliant name.</small>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label">Password:</label>
+        <input class="form-control" type="password" name="password"/>
+        <small class="form-text text-muted">Your brilliant password.</small>
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+        <div class="container mt-3">
+            <button class="btn btn-primary" type="submit"/><#if isLogin>Sign in<#else>Sign Up</#if></button>
+        </div>
+    </div>
 </form>
 
 </#macro>
@@ -14,7 +33,7 @@
 <div>
     <form action="/logout" method="post">
        <input type="hidden" name="_csrf" value="${_csrf.token}" />
-       <input type="submit" value="Sign Out"/>
+        <button class="btn btn-primary" type="submit"/>Sign out</button>
     </form>
 </div>
 

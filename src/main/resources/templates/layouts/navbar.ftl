@@ -1,3 +1,5 @@
+<#include "security.ftl">
+<#import "styleAuth.ftl" as s>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">Exampler</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,9 +14,15 @@
       <li class="nav-item">
               <a class="nav-link" href="/main">Messages</a>
       </li>
+      <#if isAdmin>
       <li class="nav-item">
               <a class="nav-link" href="/user">User list</a>
       </li>
+      </#if>
     </ul>
   </div>
+  <div class="navbar-text mr-4">
+    You ${name}
+  </div>
+   <@s.logout />
 </nav>

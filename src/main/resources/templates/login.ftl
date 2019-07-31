@@ -3,7 +3,6 @@
 <#import "layouts/styleAuth.ftl" as s>
 
 <@c.page>
-           <div>Login page</div>
-           <@s.auth "/login"/>
+           <@s.auth "/login" true/>
                <a href="/registration">Go to reg</a>
 </@c.page>

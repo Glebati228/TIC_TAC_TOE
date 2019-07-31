@@ -2,6 +2,7 @@ package com.example.exampler;
 import com.example.exampler.domain.Message;
 import com.example.exampler.domain.User;
 import com.example.exampler.repositories.MessageRepo;
+import com.example.exampler.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,6 +26,9 @@ public class GreetingController
     @Autowired
     private MessageRepo messageRepo;
 
+    @Autowired
+    private UserRepo userRepo;
+
     @Value("${file-upload}")
     private String filepath;
 
@@ -38,11 +42,21 @@ public class GreetingController
     public String main(Model model)
     {
         Iterable<Message> messages = messageRepo.findAll();
+        Iterable<User> users = userRepo.findAll();
 
         model.addAttribute("messages", messages);
+        model.addAttribute("users", users);
 
         return "main";
     }
+    @GetMapping("/peop")
+    public String peoples(Model model)
+    {
+        Iterable<User> users = userRepo.findAll();
+        model.addAttribute("peoples", users);
+        return "people";
+    }
+
     @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,
@@ -52,7 +66,7 @@ public class GreetingController
             Model model) throws IOException {
         Message message = new Message(text, tag, user);
 
-        if(file != null)
+        if(file != null && !file.getOriginalFilename().isEmpty())
         {
             File uploads = new File(filepath);
             if(!uploads.exists())

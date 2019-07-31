@@ -1,39 +1,49 @@
-
+<#include "layouts/security.ftl">
 <#import "layouts/style1.ftl" as c>
-<#import "layouts/styleAuth.ftl" as s>
-<@c.page>
 
-        <@s.logout/>
-         <a href="/user">Users</a>
-        <div>
-                        <form method="post" enctype="multipart/form-data">
-                            <input type="text" name="text" placeholder="Enter the message" />
-                            <input type="text" name="tag" placeholder="tag"/>
-                            <input type="file" name="file"/>
+<@c.page>
+<div class="form-row">
+                <form class="form-inline" method="post" action="filter">
+                            <input class="form-control" type="text" name="filter" placeholder="Find by tag">
                             <input type="hidden" name="_csrf" value="${_csrf.token}" />
-                            <button type="submit">Add</button>
+                            <button class="btn btn-primary ml-3" type="submit">Find</button>
+                        </form>
+                 </div>
+                 <a class="btn btn-primary mt-3" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Add Message
+                   </a>
+        <div class="collapse" id="collapseExample">
+                        <form class="form-group" method="post" enctype="multipart/form-data">
+                         <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                            <input class="form-control mt-2" type="text" name="text" placeholder="Enter the message" />
+                            <input class="form-control mt-2" type="text" name="tag" placeholder="tag"/>
+                            <div class="custom-file mt-2">
+                                <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"/>
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                            <button class="btn btn-primary mt-2" type="submit">Add</button>
                         </form>
                     </div>
-                    <div>Messages</div>
-             <div>
-                    <form method="post" action="filter">
-                        <input type="text" name="filter">
-                        <input type="hidden" name="_csrf" value="${_csrf.token}" />
-                        <button type="submit">Find by tag</button>
-                    </form>
-             </div>
+                    <div class="container row mt-2">
+                        Messages
+                    </div>
              <#list messages as message>
-             <div>
-                 <b>${message.getId()}</b>
-                 <span>${message.GetText()}</span>
-                 <i>${message.GetTag()}</i>
-                 <strong>${message.getAuthorName()}</strong>
+             <div class="container">
+                 <!--<b>${message.getId()}</b>-->
+                 <div class="row">
+                    <p class="font-weight-light">${message.getAuthorName()}:</p> ${message.GetText()} ${message.GetTag()}
+                 </div>
                  <#if message.getFilename()??>
-                 <img src="/images/${message.getFilename()}"/>
+                 <div class="row">
+                    <img src="/images/${message.getFilename()}"/>
+                 </div>
                  </#if>
-                  <a href="/editMes/${message.getId()}">Edit</a>
+                 <#if isAdmin>
+                    <small class="form-text text-muted"><a href="/editMes/${message.getId()}">Edit</a></small>
+                 </#if>
              </div>
              <#else>
              No message
              </#list>
+            <div><a href="/peop">Peoples</a></div>
 </@c.page>

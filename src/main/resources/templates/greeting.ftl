@@ -2,7 +2,7 @@
 <@c.page>
      <div class="container">
         <div class="row">
-            Hello, user
+            <h4>Hello, user</h4>
         </div>
         <div class="row">
            Dadaya
