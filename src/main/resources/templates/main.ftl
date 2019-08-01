@@ -1,4 +1,5 @@
 <#include "layouts/security.ftl">
+<#include "layouts/dates.ftl">
 <#import "layouts/style1.ftl" as c>
 
 <@c.page>
@@ -15,6 +16,7 @@
         <div class="collapse" id="collapseExample">
                         <form class="form-group" method="post" enctype="multipart/form-data">
                          <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                         <input type="hidden" name="time" value="${time}"/>
                             <input class="form-control mt-2" type="text" name="text" placeholder="Enter the message" />
                             <input class="form-control mt-2" type="text" name="tag" placeholder="tag"/>
                             <div class="custom-file mt-2">
@@ -31,7 +33,7 @@
              <div class="container">
                  <!--<b>${message.getId()}</b>-->
                  <div class="row">
-                    <p class="font-weight-light">${message.getAuthorName()}:</p> ${message.GetText()} ${message.GetTag()}
+                    <p class="font-weight-light">${message.getAuthorName()}:</p> ${message.GetText()} ${message.GetTag()}    ${message.getDatetime()?ifExists}
                  </div>
                  <#if message.getFilename()??>
                  <div class="row">

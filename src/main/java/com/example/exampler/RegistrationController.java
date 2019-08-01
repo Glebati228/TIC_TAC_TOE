@@ -28,15 +28,22 @@ public class RegistrationController
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Map<String, Object> model)
+    public String addUser(User user, Model model)
     {
+
+        /*if(!userService.isUnicalMail(user.getEmail()))
+        {
+            model.addAttribute("exist", "This mail exists");
+            return "registration";
+        }*/
+
         if(!userService.AddUser(user))
         {
-            model.put("message", "User already exists");
+            model.addAttribute("message", "User already exists");
             return "registration";
         }
 
-        model.put("message", "  ");
+        model.addAttribute("message", "  ");
         return "redirect:/login";
     }
 

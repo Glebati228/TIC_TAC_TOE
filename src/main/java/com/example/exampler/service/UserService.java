@@ -69,4 +69,15 @@ public class UserService implements UserDetailsService
         userRepo.save(user);
         return true;
     }
+
+    public boolean isUnicalMail(String email)
+    {
+        User user = userRepo.findByEmail(email);
+        if(user != null)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

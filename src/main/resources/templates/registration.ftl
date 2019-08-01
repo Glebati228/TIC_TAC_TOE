@@ -3,6 +3,7 @@
 <@c.page>
     <div class="text-danger">
         ${message?ifExists}
+        ${exist?ifExists}
     </div>
     <@s.auth "/registration" false/>
 </@c.page>

@@ -63,8 +63,9 @@ public class GreetingController
             @RequestParam String text,
             @RequestParam String tag,
             @RequestParam("file") MultipartFile file,
+            @RequestParam("time") String datetime,
             Model model) throws IOException {
-        Message message = new Message(text, tag, user);
+        Message message = new Message(text, tag, user, datetime);
 
         if(file != null && !file.getOriginalFilename().isEmpty())
         {
@@ -85,7 +86,6 @@ public class GreetingController
         Iterable<Message> messages = messageRepo.findAll();
 
         model.addAttribute("messages", messages);
-
         return "main";
     }
 

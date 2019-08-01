@@ -16,6 +16,25 @@ public class Message
     @JoinColumn(name = "user_id")
     private User author;
     private String filename;
+    private String datetime;
+
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
 
     public String getFilename() {
         return filename;
@@ -30,11 +49,13 @@ public class Message
 
     }
 
-    public Message(String text, String tag, User author)
+    public Message(String text, String tag, User author, String datetime)
     {
         this.text = text;
         this.tag = tag;
         this.author = author;
+        this.datetime = datetime;
+        username = author.getUsername();
     }
 
     public String getAuthorName()
