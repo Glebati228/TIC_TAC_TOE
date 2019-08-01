@@ -5,3 +5,5 @@ https://spring.io/guides
 -maked connection to db (Psql)
 
 -maked simple registration
+
+-most likely this branch will be abandoned
