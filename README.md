@@ -7,3 +7,5 @@ https://spring.io/guides
 -maked simple registration
 
 -safebranch for experiments 
+
+-add ui bootstrap
