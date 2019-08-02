@@ -41,7 +41,7 @@
                  </div>
                  </#if>
                  <#if isAdmin>
-                    <small class="form-text text-muted"><a href="/editMes/${message.getId()}">Edit</a></small>
+                    <small class="form-text text-muted"><a href="/editMes/${message.id}">Edit</a></small>
                  </#if>
              </div>
              <#else>

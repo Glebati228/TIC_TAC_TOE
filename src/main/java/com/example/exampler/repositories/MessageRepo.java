@@ -10,4 +10,6 @@ public interface MessageRepo extends CrudRepository<Message, Integer>
     List<Message> findByTag(String tag);
 
     List<Message> findByUsername(String username);
+
+    Message findById(Long id);
 }

@@ -7,7 +7,7 @@ public class Message
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     private String text;
     private String tag;
@@ -17,6 +17,14 @@ public class Message
     private User author;
     private String filename;
     private String datetime;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     private String username;
 
@@ -88,13 +96,4 @@ public class Message
     {
         return tag;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
 }

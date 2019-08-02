@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -23,18 +24,20 @@ public class EDMessageController
     @Autowired
     private MessageRepo messageRepo;
 
-    @GetMapping("{message}")
-    public String AllMessages(@PathVariable Message message, Model model)
+    @GetMapping("{message.id}")
+    public String AllMessages(@PathVariable(value = "message.id") Long id, Model model)
     {
-        model.addAttribute("message", message);
+        Message messages = messageRepo.findById(id);
+        model.addAttribute("message", messages);
         return "editgMessage";
     }
 
     @PostMapping("gedit")
     public String EditMessage(
-            @RequestParam("id") Message message,
+            @RequestParam Long id,
             @RequestParam String text,
             @RequestParam String tag) {
+        Message message = messageRepo.findById(id);
         message.SetText(text);
         message.SetTag(tag);
         messageRepo.save(message);
@@ -42,9 +45,10 @@ public class EDMessageController
     }
 
     @PostMapping("gdelete")
-    public String DeleteMessage(@RequestParam("id") Message message,
+    public String DeleteMessage(@RequestParam Long id,
                                 Map<String, String> model)
     {
+        Message message = messageRepo.findById(id);
         File file = new File(filepath + "/" + message.getFilename());
         file.delete();
         messageRepo.delete(message);
