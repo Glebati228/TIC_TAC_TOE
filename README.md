@@ -6,4 +6,6 @@ https://spring.io/guides
 
 -maked simple registration
 
+-maked bean validation and migrations
+
 -most likely this branch will be abandoned
