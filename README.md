@@ -8,4 +8,6 @@ https://spring.io/guides
 
 -maked bean validation and migrations
 
+-added recaptcha for registration
+
 -most likely this branch will be abandoned
