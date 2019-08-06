@@ -27,6 +27,17 @@
                 <input class="form-control" type="email" name="email"/>
                 <small class="form-text text-muted">Your brilliant email.</small>
             </#if>
+            <#if !isLogin>
+            <br/>
+            <div class="form-group mt-5">
+                <div class="g-recaptcha" data-sitekey="6LdmjLEUAAAAAEtxzZmU6oezAZQqqWZjmG6rsRGh"></div>
+                <#if captchaError??>
+                    <div class="alert alert-danger" role="alert">
+                        ${captchaError}
+                    </div>
+                </#if>
+            </div>
+            </#if>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="container mt-3">
                 <button class="btn btn-primary" type="submit"/><#if isLogin>Sign in<#else>Sign Up</#if></button>

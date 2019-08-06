@@ -1,10 +1,12 @@
 package com.example.exampler;
 
+import com.example.exampler.DTO.RecaptchaDto;
 import com.example.exampler.domain.Role;
 import com.example.exampler.domain.User;
 import com.example.exampler.repositories.UserRepo;
 import com.example.exampler.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -25,8 +29,16 @@ import java.util.stream.Collectors;
 @Controller
 public class RegistrationController
 {
+    private static final String captchaURL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
+
     @Autowired
     private UserService userService;
+
+    @Value("${secret.recaptcha}")
+    private String secretRecaptcha;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @GetMapping("/registration")
     public String registration()
@@ -37,16 +49,25 @@ public class RegistrationController
     @PostMapping("/registration")
     public String addUser(
             @RequestParam("password2") String passwordConfirm,
+            @RequestParam("g-recaptcha-response") String recaptcha,
             @Valid User user,
             BindingResult bindingResult,
             Model model)
     {
-
         /*if(!userService.isUnicalMail(user.getEmail()))
         {
             model.addAttribute("exist", "This mail exists");
             return "registration";
         }*/
+
+        String url = String.format(captchaURL, secretRecaptcha, recaptcha);
+
+        RecaptchaDto recaptchaDto = restTemplate.postForObject(url, Collections.emptyList(), RecaptchaDto.class);
+
+        if(!recaptchaDto.isSuccess())
+        {
+            model.addAttribute("captchaError", "Fill captcha");
+        }
 
         boolean isConfirm = StringUtils.isEmpty(passwordConfirm);
         if(isConfirm)
@@ -61,7 +82,7 @@ public class RegistrationController
             return "registration";
         }
 
-        if(isConfirm || bindingResult.hasErrors())
+        if(isConfirm || bindingResult.hasErrors() || !recaptchaDto.isSuccess())
         {
             Collector<FieldError, ?, Map<String, String>> collector = Collectors.toMap(
                     fieldError -> fieldError.getField() + "Error",
@@ -97,10 +118,12 @@ public class RegistrationController
 
         if(active)
         {
+            model.addAttribute("messageType", "success");
             model.addAttribute("message", "Successfully activation");
         }
         else
             {
+                model.addAttribute("messageType", "danger");
                 model.addAttribute("message", "Activation failed!");
             }
 

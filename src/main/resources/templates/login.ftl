@@ -3,7 +3,9 @@
 <#import "layouts/styleAuth.ftl" as s>
 
 <@c.page>
-${message?ifExists}
-           <@s.auth "/login" true/>
-               <a href="/registration">Go to reg</a>
+    <div class="alert alert-${messageType?ifExists}">
+        ${message?ifExists}
+    </div
+    <@s.auth "/login" true/>
+    <a href="/registration">Go to reg</a>
 </@c.page>
