@@ -3,6 +3,13 @@
 <#import "layouts/style1.ftl" as c>
 
 <@c.page>
+
+<div>
+    <a href="/publications">
+        Publications
+    </a>
+</div>
+
 <div class="form-row">
                 <form class="form-inline" method="post" action="filter">
                             <input class="form-control" type="text" name="filter" placeholder="Find by tag">
