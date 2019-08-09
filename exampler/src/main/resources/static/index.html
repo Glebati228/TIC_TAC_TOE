@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            Exampler
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+    <div id="view"></div>
+
+    <script>
+
+        Vue.component('message-cont',
+        {
+        props: ['message'],
+        template: '<div>{{message.id}} {{message.message}}</div>'
+        });
+
+        Vue.component('message-print',
+        {
+        props: ['messages'],
+        template: '<div><message-cont v-for="message in messages" :key="message.id" :message="message"/></div>'
+        });
+
+        var messages = [
+          {message: "zdarova", id: 1},
+          {message: "kak dela", id: 2},
+          {message: "zhaasdsad", id: 3},
+        ];
+
+        var example = new Vue({
+          template: '<message-print :messages="messages"/>',
+          el: '#view',
+          data: {
+          messages
+          }
+        });
+
+    </script>
+    </body>
+</html>
