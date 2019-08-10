@@ -56,7 +56,7 @@ public class MainController
        return message;
    }
 
-   @PutMapping("id")
+   @PutMapping("{id}")
     public Map<String, String> update(@PathVariable String id,@RequestParam Map<String, String> upd)
    {
        Map<String, String> mess = messages.stream().filter(message -> message.get("id")
@@ -69,9 +69,14 @@ public class MainController
        return mess;
    }
 
-   @DeleteMapping
-    public void delete()
+   @DeleteMapping("{id}")
+    public void delete(@PathVariable String id)
    {
+        Map<String, String> mes = messages.stream()
+                .filter(message -> message.get("id")
+                        .equals(id)).findFirst()
+                .orElseThrow(NotFoundExeption::new);
 
+        messages.remove(mes);
    }
 }

@@ -12,6 +12,8 @@
 
     <script>
 
+        var Api = Vue.resource('/main/{id}');
+
         Vue.component('message-cont',
         {
         props: ['message'],
@@ -21,20 +23,23 @@
         Vue.component('message-print',
         {
         props: ['messages'],
-        template: '<div><message-cont v-for="message in messages" :key="message.id" :message="message"/></div>'
+        template: '<div><message-cont v-for="message in messages" :key="message.id" :message="message"/></div>',
+
+        created: function()
+        {
+            Api.get().then(result =>
+                console.log(result)
+            );
+        }
+
         });
 
-        var messages = [
-          {message: "zdarova", id: 1},
-          {message: "kak dela", id: 2},
-          {message: "zhaasdsad", id: 3},
-        ];
 
         var example = new Vue({
           template: '<message-print :messages="messages"/>',
           el: '#view',
           data: {
-          messages
+          messages: []
           }
         });
 

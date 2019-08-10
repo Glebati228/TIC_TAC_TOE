@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            Exampler
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+    <div id="view">
+
+    </div>
+
+    <div id="view2">
+    </div>
+
+    <div id="view3">
+        <p>{{message}}</p>
+        <button v-on:click="reverseMessage">Reverse message</button>
+    </div>
+
+    <script>
+
+        Vue.component('messages-list',
+        {
+        props: ['messages'],
+        template: '<div><div v-for="message in messages" v-if="message.message.length > 1">{{message.message}} {{message.id}}</div></div>',
+        });
+
+        var app = new Vue({
+        el: '#view',
+        template: '<messages-list :messages="messages"/>',
+        data: {
+            messages: [
+            {message: "message", id: "1"},
+            {message: "ya loks", id: "2"},
+            {message: "dadaya", id: "3"},
+            ]
+        },
+        });
+
+        Vue.component('clicks-list',{
+
+        props: ['message'],
+        template: '<div><p>message</p><button v-on:click="reverseMessage">Reverse message</button></div>',
+
+        });
+
+        Vue.component('date-list', {
+
+        props: ['message'],
+        template: '<div v-bind:title="message">Vsem privet seychas title</div>',
+
+        });
+
+        var app2 = new Vue({
+        el: '#view2',
+        template: '<date-list :message="message"/>',
+        data:
+        {
+        message: "Salem date time now: " + new Date().toLocaleString(),
+        },
+        });
+
+        var app3 = new Vue({
+        el: '#view3',
+        data: { message: "dadaya",},
+        methods: {
+            reverseMessage: function()
+            {
+                this.message = this.message.split('').reverse().join('');
+            }
+        },
+        });
+
+    </script>
+
+    </body>
+</html>
