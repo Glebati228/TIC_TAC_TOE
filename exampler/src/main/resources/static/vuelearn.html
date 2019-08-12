@@ -74,6 +74,47 @@
         },
         });
 
+        var someAction = function()
+        {
+            return new Promise((resolve, rejected) =>
+            {
+                resolve("done!");
+            });
+        };
+
+        var someAction2 = function(param)
+        {
+            return new Promise((resolve, rejected) =>
+            {
+                resolve("done!!" + param);
+            });
+        };
+
+        var someAction3 = function(param)
+        {
+            return new Promise((resolve, rejected) =>
+            {
+                resolve("done!!!" + param);
+            });
+        }
+
+        someAction()
+        .then((result) =>
+        {
+            console.info(result);
+            return someAction2(result);
+        }).then((result) =>
+        {
+            console.info(result);
+            return someAction3(result);
+        }).then((result) =>
+        {
+            console.info(result);
+        }).catch((error) =>
+        {
+            console.info(error)
+        });
+
     </script>
 
     </body>
